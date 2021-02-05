@@ -1,0 +1,32 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-10">
+    <section class="user_info">
+      <h1><%= @title %></h1>
+    </section>
+    <table class="table">
+
+        <% if @users.any? %>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th></th><!--フォロー数-->
+            <th></th><!--フォロワー数-->
+          </tr>
+          <% @users.each do|user| %>
+          <tr>
+            <th>
+              <%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+            </th>
+            <th><%= user.name %></th>
+            <th>フォロー数：<%= user.following.count %></th>
+            <th>フォロワー数：<%= user.followers.count %></th>
+            <th><%= link_to "Show",user_path(user) %></th>
+          </tr>
+          <% end %>
+        <% else %>
+          ユーザーはいません
+        <% end %>
+    </table>
+  </aside>
+</div>
